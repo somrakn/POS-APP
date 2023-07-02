@@ -13,11 +13,12 @@ router.get('/a', (req, res, next) => {
   try {
     pdf.create(html, options).toBuffer((er, stream) =>{
       res.contentType("application/pdf");
-    res.send(stream);
+      console.log('pass', stream);
+      res.send(stream);
     })
   } catch (error) {
     res.send(error);
-    console.log(error);
+    console.log('error', error);
   }
  
   // pdf.create(html, options).toFile('./businesscard.pdf', function(err, res) {
