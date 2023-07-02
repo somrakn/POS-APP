@@ -16,4 +16,10 @@ router.get('/a', (req, res, next) => {
   });
 })
 
+router.get('/b', (req, res, next) => {
+  var data =fs.readFileSync('./businesscard.pdf');
+  res.contentType("application/pdf");
+  res.send(data);
+})
+
 
