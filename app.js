@@ -16,11 +16,16 @@ router.get('/a', (req, res, next) => {
   //   res.contentType("application/pdf");
   //   res.send(data);
   // })
-  pdf.create(html, options).toFile('businesscard.pdf', function(err, f) {
-    if (err) return console.log(err);
-    res.contentType("application/pdf");
-    res.download('businesscard.pdf');
-  });
+  try {
+    pdf.create(html, options).toFile('businesscard.pdf', function(err, fn) {
+      if (err) return console.log(err);
+      res.contentType("application/pdf");
+      res.download('businesscard.pdf');
+    });
+    
+  } catch (error) {
+    res.send(error);
+  }
 })
 
 router.get('/b', (req, res, next) => {
