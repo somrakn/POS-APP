@@ -13,6 +13,7 @@ router.get('/a', (req, res, next) => {
   try {
     pdf.create(html, options).toBuffer((er, stream) =>{
       res.contentType("application/pdf");
+      console.log('error pass', er);
       console.log('pass', stream);
       res.send(stream);
     })
