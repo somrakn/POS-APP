@@ -7,7 +7,11 @@ const pdf = require('html-pdf');
 app.use(router);
 app.listen(8080, (rs) => console.log('hello'))
 var html = fs.readFileSync('./html/index.html', 'utf8');
-var options = { format: 'Letter' };
+var options = { format: 'Letter',childProcessOptions: {
+  env: {
+    OPENSSL_CONF: '/dev/null',
+  },
+} };
 
 router.get('/a', (req, res, next) => {
   try {
