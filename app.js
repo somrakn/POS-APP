@@ -10,28 +10,20 @@ var html = fs.readFileSync('./html/index.html', 'utf8');
 var options = { format: 'Letter' };
 
 router.get('/a', (req, res, next) => {
-  // pdf.create(html, options).toStream((err, stream) => {
-    
-  //   var data =fs.ReadStream(stream)
-  //   res.contentType("application/pdf");
-  //   res.send(data);
-  // })
-  try {
-    pdf.create(html, options).toFile('businesscard.pdf', function(err, fn) {
-      if (err) return console.log(err);
-      res.contentType("application/pdf");
-      res.download('businesscard.pdf');
-    });
-    
-  } catch (error) {
-    res.send(error);
-  }
+  pdf.create(html, options).toBuffer((er, stream) =>{
+    res.contentType("application/pdf");
+  res.send(stream);
+  })
+  // pdf.create(html, options).toFile('./businesscard.pdf', function(err, res) {
+  //   if (err) return console.log(err);
+  //   console.log(res); // { filename: '/app/businesscard.pdf' }
+  // });
 })
 
 router.get('/b', (req, res, next) => {
-  var data =fs.ReadStream
-  res.contentType("application/pdf");
-  res.send(data);
+  // var data =fs.
+  // res.contentType("application/pdf");
+  // res.send(data);
 })
 
 
