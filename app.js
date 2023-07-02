@@ -10,10 +10,15 @@ var html = fs.readFileSync('./html/index.html', 'utf8');
 var options = { format: 'Letter' };
 
 router.get('/a', (req, res, next) => {
-  pdf.create(html, options).toBuffer((er, stream) =>{
-    res.contentType("application/pdf");
-  res.send(stream);
-  })
+  try {
+    pdf.create(html, options).toBuffer((er, stream) =>{
+      res.contentType("application/pdf");
+    res.send(stream);
+    })
+  } catch (error) {
+    res.send(error);
+  }
+ 
   // pdf.create(html, options).toFile('./businesscard.pdf', function(err, res) {
   //   if (err) return console.log(err);
   //   console.log(res); // { filename: '/app/businesscard.pdf' }
