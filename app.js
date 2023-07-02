@@ -1,14 +1,25 @@
-const express = require("express");
-const router = require('./router/index.js')
-const html = require('./old.js');
-const database = require('./database.js');
+const express = require('express')
+const router = express.Router();
 const app = express();
-const port = process.env.PORT || 3001;
+const fs = require('fs');
+const pdf = require('html-pdf');
 
-app.get("/", (req, res) => res.type('html').send(html));
 app.use(router);
+app.listen(8080, (rs) => console.log('hello'))
+var html = fs.readFileSync('./html/index.html', 'utf8');
+var options = { format: 'Letter' };
 
-const server = app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+router.get('/a', (req, res, next) => {
+  pdf.create(html, options).toFile('./businesscard.pdf', function(err, res) {
+    if (err) return console.log(err);
+    console.log(res); // { filename: '/app/businesscard.pdf' }
+  });
+})
 
-server.keepAliveTimeout = 120 * 1000;
-server.headersTimeout = 120 * 1000;
+router.get('/b', (req, res, next) => {
+  var data =fs.readFileSync('./businesscard.pdf');
+  res.contentType("application/pdf");
+  res.send(data);
+})
+
+
