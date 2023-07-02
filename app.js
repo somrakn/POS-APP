@@ -17,6 +17,7 @@ router.get('/a', (req, res, next) => {
     })
   } catch (error) {
     res.send(error);
+    console.log(error);
   }
  
   // pdf.create(html, options).toFile('./businesscard.pdf', function(err, res) {
