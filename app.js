@@ -6,6 +6,15 @@ const pdf = require('html-pdf');
 
 app.use(router);
 app.listen(8080, (rs) => console.log('hello'))
+fs.writeFile("./html/index.html", "Hey there!", function(err) {
+  if(err) {
+      return console.log(err);
+  }
+  console.log("The file was saved!");
+}); 
+
+// Or
+fs.writeFileSync('./html/index.html', 'Hey there!');
 var html = fs.readFileSync('./html/index.html', 'utf8');
 var options = { format: 'Letter',childProcessOptions: {
   env: {
