@@ -10,10 +10,15 @@ var html = fs.readFileSync('./html/index.html', 'utf8');
 var options = { format: 'Letter' };
 
 router.get('/a', (req, res, next) => {
-  pdf.create(html, options).toBuffer((err, data) => {
-    res.contentType("application/pdf");
-    res.send(data);
-  })
+  try {
+    pdf.create(html, options).toBuffer((err, data) => {
+      res.contentType("application/pdf");
+      res.send(data);
+    })
+  } catch (error) {
+    res.send(error);
+  }
+  
 })
 
 
