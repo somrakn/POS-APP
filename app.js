@@ -6,15 +6,15 @@ const pdf = require('html-pdf');
 
 app.use(router);
 app.listen(8080, (rs) => console.log('hello'))
-fs.writeFile("./html/index.html", "Hey there!", function(err) {
-  if(err) {
-      return console.log(err);
-  }
-  console.log("The file was saved!");
-}); 
+// fs.writeFile("./html/index.html", "<b>Hey there!<b>", function(err) {
+//   if(err) {
+//       return console.log(err);
+//   }
+//   console.log("The file was saved!");
+// }); 
 
 // Or
-fs.writeFileSync('./html/index.html', 'Hey there!');
+// fs.writeFileSync('./html/index.html', 'Hey there!');
 var html = fs.readFileSync('./html/index.html', 'utf8');
 var options = { format: 'Letter',childProcessOptions: {
   env: {
@@ -27,7 +27,7 @@ router.get('/a', (req, res, next) => {
     pdf.create(html, options).toBuffer((er, stream) =>{
       res.contentType("application/pdf");
       console.log('error pass', er);
-      console.log('pass', stream);
+      // console.log('pass', stream);
       res.send(stream);
     })
   } catch (error) {
@@ -44,7 +44,7 @@ router.get('/a', (req, res, next) => {
 router.get('/b', (req, res, next) => {
   // var data =fs.
   // res.contentType("application/pdf");
-  // res.send(data);
+  res.send('hello');
 })
 
 
